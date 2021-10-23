@@ -1,28 +1,18 @@
-export class Table {
-    constructor() {
-        console.log(this)
-        this.table = this.#createTable()
+import { Table } from "./Table.js";
 
-        this.table.addEventListener("click", this.#getIntoTable)
-        this.table.addEventListener("dblclick ", this.#getIntoTable)
+
+class App {
+    constructor(){
+
+    const addBtn = document.querySelector(".add_btn");
+
+    addBtn.addEventListener("click", this.addTable);
     }
-    
-    render() {
-        
+    addTable() {
+        const table = new Table();
+      
     }
-    #createTable() {
-        const table = document.createElement('div')
-        table.classList.add("table");
-        
-        document.body.appendChild(table);
-        return table;
-    }
-    
-    #getIntoTable() {
-        this.classList.add("showtable")
-    }
+
 }
 
-    const costam = new Table();
-    costam.render();
-  
+const app = new App()
