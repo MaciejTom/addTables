@@ -1,4 +1,5 @@
 import { Person } from "./Person.js";
+import { LocalInterface } from "./LocalInterface.js";
 
 export class Table {
     constructor() {
@@ -20,11 +21,33 @@ export class Table {
 
         this.leftPx;
         this.topPx;
-        this.table.querySelector(".add_person_btn").addEventListener("click", e => this.#addPerson(e))
+        this.table.querySelector(".add_person_btn").addEventListener("click", e => this.#addPerson(e),)
         
         this.innerDiv = this.table.querySelector(".inner_div");
+        this.id = Date.now();
+        // this.addTableToLocal = () => {
+        //     const serializedTable = JSON.stringify(this)
+        //     localStorage.setItem(this.id, serializedTable)
+        // }
+        // console.log(this.addTableToLocal)
+        this.#addTableToLocal()
+     
+        // addTableToLocal(this)
         
     }
+    #addTableToLocal() {
+        const serializedTable = JSON.stringify(this)
+        localStorage.setItem(this.id, serializedTable)
+    }
+    #setTableInLocal() {
+        const serializedTable = JSON.stringify(this)
+        localStorage.setItem(this.id, serializedTable)
+    }
+    // displayFromLocalStorage() {
+    //     const serializedTable = localStorage.getItem(this.id);
+    //     const deserializedTable = JSON.parse(serializedTable)
+    //     console.log(deserializedTable)
+    // }
     #createTable() {
 
         const table = document.createElement('div')
@@ -33,35 +56,38 @@ export class Table {
 
         table.classList.add("table");
         document.body.appendChild(table);
+        
         return table;
     }
 
     #addPerson() {
-
+        
+       
         const person = new Person();      
         this.innerDiv.appendChild(person.createPerson());   
-          
+
     }
 
     #mouseMove(e) {
-        
-        let leftPx;
-        let topPx;
-        
+               
         if (this.isDragable && this.isHidden) {
 
-        leftPx = e.clientX - this.insertDivX;
-        topPx = e.clientY - this.insertDivY;
-            
-        this.table.style.left = `${leftPx}px`;
-        this.table.style.top = `${topPx}px`;
+        this.leftPx = e.clientX - this.insertDivX;
+        this.topPx = e.clientY - this.insertDivY;
+        this.#setTableInLocal()
+                   
+        this.table.style.left = `${this.leftPx}px`;
+        this.table.style.top = `${this.topPx}px`;
 
         }
         
     }   
 
-    #getInTable() {
+    #getInTable(e) {
+        
 
+      
+        
         if (this.isHidden) {   
             this.innerDiv.style.display = "block";
           
