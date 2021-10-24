@@ -4,7 +4,7 @@ import { Table } from "./Table.js";
 class App {
     constructor(){
 
-    const addBtn = document.querySelector(".add_btn");
+    const addBtn = document.querySelector(".add_table_btn");
 
     addBtn.addEventListener("click", this.addTable);
     }
